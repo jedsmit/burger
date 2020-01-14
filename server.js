@@ -1,25 +1,25 @@
-//dependancies 
-var express = require("express");
-var hbs = require("express-handlebars");
-var router = require("./controllers/burgers_controller.js")
-
-var PORT = process.env.PORT || 3000;
+var express = require('express');
+var exphbs = require('express-handlebars');
 
 var app = express();
+// Set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var PORT = process.env.PORT || 3000;
 
-app.use(router);
-
-app.use(express.static("public"));
-
+//Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.engine("handlebars", hbs({ defaultLayout: "main" }));
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+
 app.set("view engine", "handlebars");
+//imports routes give server access
+var routes = require("./controllers/burgers_controller.js");
 
-
-
-//listen
+app.use(routes);
+//start server 
 app.listen(PORT, function () {
-    console.log("Server listening on: http://localhost:" + PORT);
+    //log (server-side) when server starts
+    console.log("Server listening on PORT: " + PORT);
 });

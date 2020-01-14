@@ -1,63 +1,96 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-8 text-center">
             <h1>Burgers!</h1>
         </div>
     </div>
+
     <div class="row">
-        {{#each burgers}}
-        {{#unless this.devoured}}
-        <div class="burgers col col-sm-12">
-            <div class="col col-sm-6">
-                <img class="burger-img img-responsive" src="/assets/img/burger.png" alt="Burger Image">
-                <p class="burgers-name">{{this.name}}</p>
-            </div>
-            <div class="col col-sm-3">
-                <form action="burgers/devour/{{this.id}}?_method=PUT" method="POST">
-                    <input type="hidden" name="devoured" value="true">
-                    <button class="btn btn-sm btn-success center-block" type="submit">Devour It!</button>
-                </form>
-            </div>
-            <div class="col col-sm-3">
-                <form action="burgers/clear/{{this.id}}?_method=DELETE" method="POST">
-                    <input type="hidden" name="id" value="{{this.id}}">
-                    <button class="btn btn-sm btn-danger center-block" type="submit">Remove Burger?</button>
-                </form>
+        <div class="col-xs-5">
+            <div class="form-group">
+                <label for="burger-input">Create a burger!</label>
+                <input type="text" class="form-control" id="burger-input" placeholder="Your burger name">
+                <div class="btn btn-danger submit-btn" style="margin-top: 10px;">Submit</div>
             </div>
         </div>
-        {{/unless}}
-        {{/each}}
     </div>
-    <dic class="row">
-        <div class="col-xs-8 text-center">
-            <form class="create-form">
-                <div class="form-group">
-                    <label for="new-burger">Burgers!</label>
-                    <input type="text" id="new-burger" name="burger">
-                    <button class="btn btn-dark" id="add-burger"></button>
-                </div>
-            </form>
+
+    <div class="row">
+        <div class="col-xs-5">
+
+
+            <ul>
+                {{#each burger}}
+                {{#unless this.devoured}}
+                <li class="burger-list">
+                    <p>{{this.burger_name}} <button class="btn btn-danger devour-btn"
+                            data-id="{{this.id}}">Devour</button></p>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
         </div>
+
+
+        <div class="col-xs-5">
+            <ul>
+                {{#each burger}}
+                {{#if this.devoured}}
+                <li class="devoured-list">
+                    <p>{{this.burger_name}}</p>
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+
+        </div>
+    </div>
+
 </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
     $(function () {
-        $(".create-form").on("submit", function (event) {
+
+        $(".submit-btn").on("click", function (event) {
             event.preventDefault();
+
             var newBurger = {
-                burger_name: $("#new-burger").val().trim(),
-                devoured: 0
+                burger_name: $(".form-control").val().trim(),
+                devoured: false
             };
-            $.ajax("/api/burgers", {
+
+            $.ajax("api/burgers", {
                 type: "POST",
                 data: newBurger
             }).then(function () {
+                console.log("New burger created")
                 location.reload();
             })
+        });
 
-        })
-    })
+        $(".devour-btn").on("click", function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            var eaten = true;
+            var devouredBurger = {
+                devoured: eaten
+            };
+
+            $.ajax("api/burgers/" + id, {
+                type: "PUT",
+                data: devouredBurger
+            }).then(
+                function () {
+                    location.reload();
+                }
+            );
+        });
+
+
+    });
+
 
 </script>
