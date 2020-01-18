@@ -1,53 +1,57 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-8 text-center">
-            <h1>Burgers!</h1>
+<div class="row">
+    <div class="col-xs-8 text-center mx-auto">
+        <h1>Burgers!</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-4 mx-auto p-3">
+        <div class="form-group">
+            <label for="burger-input">Create a burger!</label>
+            <input type="text" class="form-control" id="burger-input" placeholder="Your burger name">
+            <div class="btn btn-danger submit-btn" style="margin-top: 10px;">Submit</div>
         </div>
     </div>
-
+</div>
+<div class="container mt-5">
     <div class="row">
-        <div class="col-xs-5">
-            <div class="form-group">
-                <label for="burger-input">Create a burger!</label>
-                <input type="text" class="form-control" id="burger-input" placeholder="Your burger name">
-                <div class="btn btn-danger submit-btn" style="margin-top: 10px;">Submit</div>
+        <div class="col-xs-4 mx-auto d-inline-flex">
+            <div class="container">
+                <h3 class="text-center">Menu</h3>
+                <ul class="mt-5 list-group text-center">
+                    {{#each burger}}
+                    {{#unless this.devoured}}
+                    <li class="burger-list list-group-item border-0">
+                        <p>{{this.burger_name}} <button class="btn btn-danger devour-btn"
+                                data-id="{{this.id}}">Devour</button></p>
+                    </li>
+                    {{/unless}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-2">
+            <div class="container-fluid"></div>
+        </div>
+
+        <div class="col-xs-4 mx-auto d-inline-flex text-center justify-content-end">
+            <div class="container">
+                <h3 class="text-center">Burgers Devoured</h3>
+                <ul class="list-group mt-5">
+                    {{#each burger}}
+                    {{#if this.devoured}}
+                    <li class="devoured-list list-group-item border-0">
+                        <p>{{this.burger_name}}</p>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-5">
-
-
-            <ul>
-                {{#each burger}}
-                {{#unless this.devoured}}
-                <li class="burger-list">
-                    <p>{{this.burger_name}} <button class="btn btn-danger devour-btn"
-                            data-id="{{this.id}}">Devour</button></p>
-                </li>
-                {{/unless}}
-                {{/each}}
-            </ul>
-        </div>
-
-
-        <div class="col-xs-5">
-            <ul>
-                {{#each burger}}
-                {{#if this.devoured}}
-                <li class="devoured-list">
-                    <p>{{this.burger_name}}</p>
-                </li>
-                {{/if}}
-                {{/each}}
-            </ul>
-
-        </div>
-    </div>
-
 </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
