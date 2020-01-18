@@ -38,7 +38,15 @@ var orm = {
             if (err) throw err;
             cb(res);
         });
+    },
+
+    deleteOne: function (table, condition, cb) {
+        connection.query("DELETE FROM " + table + " WHERE " + condition + ";", function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
     }
 };
+
 
 module.exports = orm;

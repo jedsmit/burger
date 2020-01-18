@@ -42,7 +42,8 @@
                     {{#each burger}}
                     {{#if this.devoured}}
                     <li class="devoured-list list-group-item border-0">
-                        <p>{{this.burger_name}}</p>
+                        <p>{{this.burger_name}}<button class="btn btn-danger delete-btn"
+                                data-id="{{this.id}}">Delete</button></p>
                     </li>
                     {{/if}}
                     {{/each}}
@@ -75,6 +76,7 @@
             })
         });
 
+
         $(".devour-btn").on("click", function (event) {
             event.preventDefault();
             var id = $(this).data("id");
@@ -94,7 +96,17 @@
         });
 
 
-    });
+        $(".delete-btn").on("click", function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+
+            $.ajax({
+                type: "DELETE",
+                url: "/api/burgers/" + id
+            }).then(
+                location.reload());
+        });
+    })
 
 
 </script>
