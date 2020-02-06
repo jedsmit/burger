@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background:image(burgerbg.jpg)">
+<div class="container-fluid burger-background">
     <div class="row">
         <div class="col-xs-8 text-center mx-auto">
             <h1>Burgers!</h1>
@@ -10,7 +10,7 @@
             <div class="form-group">
                 <label for="burger-input">Create a burger!</label>
                 <input type="text" class="form-control" id="burger-input" placeholder="Your burger name">
-                <div class="btn btn-danger submit-btn" style="margin-top: 10px;">Submit</div>
+                <div class="btn btn-outline-light submit-btn" style="margin-top: 10px;">Submit</div>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
                         {{#each burger}}
                         {{#unless this.devoured}}
                         <li class="burger-list list-group-item border-0">
-                            <p>{{this.burger_name}} <button class="btn btn-danger devour-btn ml-2"
+                            <p>{{this.burger_name}} <button class="btn btn-outline-light devour-btn ml-2"
                                     data-id="{{this.id}}">Devour</button></p>
                         </li>
                         {{/unless}}
@@ -45,7 +45,7 @@
                         {{#each burger}}
                         {{#if this.devoured}}
                         <li class="devoured-list list-group-item border-0">
-                            <p>{{this.burger_name}}<button class="btn btn-danger delete-btn ml-2"
+                            <p>{{this.burger_name}}<button class="btn btn-outline-white delete-btn ml-2"
                                     data-id="{{this.id}}">Delete</button></p>
                         </li>
                         {{/if}}

@@ -1,9 +1,23 @@
-body {
-    background-image: url("../burgerbg.jpg"); 
+body{
+    color: white;
+    font-weight: bolder;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;    
+    background-image: url("../images/burgerbg.jpg"); 
     background-attachment: fixed;
+    background-position: top center;
     background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-button {
-    color: blue;
+.btn {
+    backdrop-filter: blur(6px);
+}
+
+.burger-list {
+    background: transparent;
 }
